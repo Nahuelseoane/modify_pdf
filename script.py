@@ -1,14 +1,16 @@
 import fitz  # PyMuPDF
 
-pdf_path = "/mnt/c/Users/jnahu/Downloads/updated_document4.pdf"
-output_path = "/mnt/c/Users/jnahu/Downloads/updated_document5.pdf"
+file_name = "document"
+pdf_path = f"/mnt/c/Users/jnahu/Downloads/{file_name}.pdf"
+new_file_name = "updated_document"
+output_path = f"/mnt/c/Users/jnahu/Downloads/{new_file_name}.pdf"
 text_to_replace = "Consumidor Final "
 replacement_text = "Como estas Mecha "
 
 doc = fitz.open(pdf_path)
 
 # Default values
-font_name = 'helv'
+font_name = "helv"
 font_size = 8
 x_offset = 0  # Adjust horizontal positioning
 y_offset = 10  # Move text down by 2 points (adjust as needed)
@@ -34,16 +36,16 @@ for page in doc:
 
         # If PyMuPDF fails to find the font, default to Helvetica
         if font_name not in ["helv", "times", "cour"]:
-            print(
-                f"Warning: Font '{font_name}' not found. Using Helvetica instead.")
+            print(f"Warning: Font '{font_name}' not found. Using Helvetica instead.")
             font_name = "helv"  # Default to Helvetica
         # Insert new text at adjusted position
         x, y = inst[:2]  # Original position
         page.insert_text(
-            (x + x_offset, y + y_offset), replacement_text,
+            (x + x_offset, y + y_offset),
+            replacement_text,
             fontsize=font_size,
             fontname=font_name,
-            color=(0, 0, 0)  # Black text
+            color=(0, 0, 0),  # Black text
         )
 
 # Save the modified file
@@ -51,4 +53,5 @@ doc.save(output_path)
 doc.close()
 
 print(
-    f"Text replacement completed with font matching. Updated PDF saved as {output_path}")
+    f"Text replacement completed with font matching. Updated PDF saved as {output_path}"
+)
